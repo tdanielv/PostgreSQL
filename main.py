@@ -31,14 +31,16 @@ try:
 #     Item added successfully
 # Соединение с PostgreSQL закрыто
 
-    cursor.execute('''SELECT purchase_time FROM item WHERE item_id=12''')
-    putchase_datetime = cursor.fetchone()
-    print('DATE', putchase_datetime[0].date())
-    print('TIME', putchase_datetime[0].time())
+    # cursor.execute('''SELECT purchase_time FROM item WHERE item_id=12''')
+    # putchase_datetime = cursor.fetchone()
+    # print('DATE', putchase_datetime[0].date())
+    # print('TIME', putchase_datetime[0].time())
 # DATE 2022-09-29
 # TIME 19:18:08.968730
 # Соединение с PostgreSQL закрыто
-
+    cursor.execute('''DELETE FROM item WHERE item_id = 12''')
+    conn.commit()
+    print('Deleted')
 
 except (Exception, Error) as error:
     print("Ошибка при работе с PostgreSQL", error)
