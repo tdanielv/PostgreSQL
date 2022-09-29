@@ -1,3 +1,5 @@
+import datetime
+
 import psycopg2
 from psycopg2 import Error
 
@@ -9,41 +11,34 @@ try:
     # Курсор для выполнения операций с базой данных
     cursor = conn.cursor()
 
-    # insert_query = '''INSERT INTO   mobile (ID, MODEL, PRICE) VALUES (1, 'IPHONE13', '2300')'''
-    # cursor.execute(insert_query)
+    # create_table_query = '''CREATE TABLE item(
+    # item_id serial NOT NULL PRIMARY KEY,
+    # item_name VARCHAR (100) NOT NULL,
+    # purchase_time timestamp NOT NULL,
+    # price INTEGER NOT NULL
+    # );'''
+    # cursor.execute(create_table_query)
     # conn.commit()
-    # print('Запись успешно вставлена')
-    # cursor.execute('SELECT * FROM mobile')
-    # record = cursor.fetchall()
-    # print('Result', record)
-#     Запись успешно вставлена
-# Result [(1, 'IPHONE13', 2300.0)]
+    # print('Table created')
+# Table created
 # Соединение с PostgreSQL закрыто
-
-    # Выполнение SQL-запроса для обновления таблицы
-    # update_query = """Update mobile set price = 1500 where id = 1"""
-    # cursor.execute(update_query)
-    # conn.commit()
-    # count = cursor.rowcount
-    # print(count, "Запись успешно удалена")
-    # # Получить результат
-    # cursor.execute("SELECT * from mobile")
-    # print("Результат", cursor.fetchall())
-# 1 Запись успешно удалена
-# Результат [(1, 'IPHONE13', 1500.0)]
-# Соединение с PostgreSQL закрыто
-
-# Выполнение SQL-запроса для удаления таблицы
-#     delete_query = '''DELETE from mobile where id = 1'''
-#     cursor.execute(delete_query)
+#     insert_into_table = '''INSERT INTO item(item_id, item_name, purchase_time, price) VALUES (%s, %s, %s, %s)'''
+#     item_purchase_time = datetime.datetime.now()
+#     item_tuple = (12, 'Keyboard', item_purchase_time, '1200')
+#     cursor.execute(insert_into_table, item_tuple)
 #     conn.commit()
-#     count = cursor.rowcount
-#     print(count, 'Deleted')
-#     cursor.execute('SELECT * from mobile')
-#     print('REsult', cursor.fetchall())
-#     1 Deleted
-# REsult []
+#     print('Item added successfully')
+#     Item added successfully
 # Соединение с PostgreSQL закрыто
+
+    cursor.execute('''SELECT purchase_time FROM item WHERE item_id=12''')
+    putchase_datetime = cursor.fetchone()
+    print('DATE', putchase_datetime[0].date())
+    print('TIME', putchase_datetime[0].time())
+# DATE 2022-09-29
+# TIME 19:18:08.968730
+# Соединение с PostgreSQL закрыто
+
 
 except (Exception, Error) as error:
     print("Ошибка при работе с PostgreSQL", error)
